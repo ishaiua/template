@@ -121,4 +121,46 @@ class IndexController extends BaseController {
         $this->assign('data',$data);
         $this->display();
     }
+
+    public function deleteRole()
+    {
+        $role_id=I('get.role_id');
+        $result=M('Role')->where('id='.$role_id)->delete();
+        redirect(U('Index/roleList'));
+    }
+
+    public function addRole()
+    {
+        if(IS_POST){
+            $postData = I('post.');
+            D('Role','Logic')->addRole($postData);
+            redirect(U('Index/roleList'));
+            exit;
+        }
+        $node = D('Node','Logic')->where(array('status'=>1))->getNodeList();
+
+        $this->assign('node',$node);
+        $this->display();
+    }
+
+    public function updateRole()
+    {
+        if( IS_POST ){
+
+            $post = I('post.');
+
+            /*更新角色、角色节点表*/
+            D('Role','Logic')->saveRole($post);
+            redirect(U('Index/roleList'));
+            exit;
+        }
+
+
+        $role_id = I('get.role_id');
+        $data = D('Role','Logic')->getRoleInfo($role_id);
+        $this->assign('data',$data);
+        $this->display();
+    }
+
+    
 }

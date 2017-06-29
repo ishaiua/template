@@ -139,70 +139,116 @@
       background:#139667;
       color:white;
     }
+    #AccountSettinggetrolelist{
+      color: #19a97b;
+      background: #f8f8f8;
+    }
 </style>
 
 
-<section class="rt_wrap content mCustomScrollbar">
- <div class="rt_content">
-      <form action="" method="post">
-
-      <input type="hidden" name="id" value="<?php echo ($_GET['id']); ?>"/>
-
-          <section>
-              <h2><strong style="color:grey;">更新管理员</strong></h2>
+          <section class="rt_wrap content mCustomScrollbar">
+          <div class="rt_content">
+            <form action="" method="post">
+            <input type="hidden" name="roleId" value="<?php echo ($data['data']['id']); ?>"/>
+            <section>
+              <h2><strong style="color:grey;">更新新角色</strong></h2>
               <ul class="ulColumn2">
-              <li>
-                <span class="item_name" style="width:120px;">邮箱　</span>
-                <input readonly="true" type="text" class="textbox textbox_295" name="mail" value="<?php echo ($data['email']); ?>"/>
-              </li>
+              
                <li>
-                <span class="item_name" style="width:120px;">用户名　</span>
-                <input type="text" class="textbox textbox_295" name="name" value="<?php echo ($data['name']); ?>"/>
+                <span class="item_name" style="width:120px;">角色名称　</span>
+                <input type="text" class="textbox textbox_295" name="name" value="<?php echo ($data['data']['name']); ?>"/>
+               </li>
+             
+             
+               <li>
+                  <span class="item_name" style="width:120px;">功能选择　</span>
+                         <table class="table" style="width:600px;margin:20px 50px;">
+
+                              <?php if(is_array($data['nodelist'])): $i = 0; $__LIST__ = $data['nodelist'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr class="dataList" style="background:#CDC5BF;">
+                                    <td colspan="5"><?php echo ($vo['name']); ?>-<?php echo ($vo['title']); ?></td>
+                                    <td style="display:none;"><input type="checkbox" name="access[]" checked="checked" value="<?php echo ($vo['id']); ?>"/></td>
+                                 </tr>
+
+                                <?php if(is_array($vo['child'])): $i = 0; $__LIST__ = $vo['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><tr style="background:#E0EEE0;">
+                                      <td><?php echo ($v['name']); ?>-<?php echo ($v['title']); ?></td>
+                                      <td><?php echo $v['status']==1?'开启中':'关闭中'; ?></td>
+                                      <td><?php echo node_level($v['level']); ?></td>
+                                      <td colspan="3">
+                                        <input type="checkbox" name="access[]" value="<?php echo ($v['id']); ?>" class='controller' id="class<?php echo ($v['id']); ?>" 
+
+                                        <?php if(in_array($v['id'],$data['checknode'])){ ?>checked="checked" <?php } ?> 
+                                         />
+                                      </td>
+                                   </tr>   
+
+                                  <?php if(is_array($v['child'])): $i = 0; $__LIST__ = $v['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v1): $mod = ($i % 2 );++$i;?><tr>
+                                          <td><?php echo ($v1['name']); ?>-<?php echo ($v1['title']); ?></td>
+                                          <td><?php echo $v1['status']==1?'开启中':'关闭中'; ?></td>
+                                          <td><?php echo node_level($v1['level']); ?></td>
+                                          <td colspan="3">
+                                            <input type="checkbox" name="access[]" value="<?php echo ($v1['id']); ?>" data-id="class<?php echo ($v['id']); ?>" class="checkmethod" <?php if(in_array($v1['id'],$data['checknode'])){ ?>checked="checked" <?php }?> />
+                                          </td>
+                                      </tr><?php endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; endforeach; endif; else: echo "" ;endif; ?>
+                            </table>
                </li>
                <li>
-                <span class="item_name" style="width:120px;">初始化密码　</span>
-                 <input type="password" class="textbox textbox_295" name="password" id="pwd"/>
-                 <span class="errorTips">如不需重置密码,请勿填写</span>
+                <span class="item_name" style="width:120px;vertical-align:top;">用户备注　</span>
+                <textarea placeholder="备注信息" class="textarea" style="width:500px;height:100px;" name="remark"><?php echo ($data['data']['remark']); ?></textarea>
                </li>
+
                 <li>
-                  <span class="item_name" style="width:120px;">再次输入密码　</span>
-                  <input type="password" class="textbox textbox_295" id="repwd"/>
-                   <span class="errorTips">如不需重置密码,请勿填写</span>
-               </li>
-               
-              
-              
-
-               <li>
-                <span class="item_name" style="width:120px;vertical-align:top;">备注信息:</span>
-                <textarea placeholder="用户备注信息" class="textarea" style="width:500px;height:100px;" name="remark"><?php echo ($data['remark']); ?></textarea>
-               </li>
-
-               <li>
-                    <span class="item_name" style="width:120px;">设置角色　</span>
-                    <select class="select" name="role_id">
-                      <?php if(is_array($roleList)): $i = 0; $__LIST__ = $roleList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo['id']); ?>" id="list<?php echo ($vo['id']); ?>"><?php echo ($vo['name']); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
-                    </select>
+                <span class="item_name" style="width:120px;">是否开启　</span>
+                <label class="single_selection"><input type="radio" name="status" value="1" id="show1" />
+                    开启
+                </label>
+                <label class="single_selection"><input type="radio" name="status" value="0" id="show0" />不开启</label>
                </li>
 
                <li>
                 <span class="item_name" style="width:120px;"></span>
-                <input type="submit" class="link_btn" value="更新"/>
+                <input type="submit" class="link_btn" value="更新新角色"/>
                </li>
               </ul>
-          </section>
-        </form>
- </div>
-</section>
-    
+             </section>
+           </div>
+        </section>
+      </form>
 
-  <script type="text/javascript">
-      $(function(){
-          $('.lt_aside_nav ul dd').eq(0).find('a').addClass('active');
-          $('#list<?php echo ($data["role_id"]); ?>').attr('selected',true);
-      });
+   </div>
+</section>  
 
-  </script>
+<script type="text/javascript">
+    $(function(){
+        $('.checkmethod').on('click',function(){
+            var checked = $('.checkmethod:checked');
+            var dataId = $(this).attr('data-id');
+            var length = $('[data-id='+dataId+']').length;
+
+
+            /*如果全部选中*/
+            if(checked.length==0){
+                $('#'+dataId).prop("checked",false);
+            }else{
+                $('#'+dataId).prop("checked",true);
+            }
+
+        });
+
+        $('.controller').on('click',function(){
+            var dataid = $(this).attr('id');
+            if ($(this).prop('checked') ){
+               $('input[data-id="'+dataid+'"]').prop("checked",true);  
+           }else{
+             $('input[data-id="'+dataid+'"]').prop("checked",false);
+           }
+           
+        });
+
+         $('#show<?php echo ($data["data"]["status"]); ?>').attr('checked',true);
+
+    });
+</script>
+
 
 </body>
 </html>

@@ -35,7 +35,7 @@
         
         <section style="margin:15px;">
           <h2><strong style="color:grey;">角色管理</strong></h2>
-          <a href="{:U('AccountSetting/addnewrole')}"><input type="button" value="添加新角色" class="group_btn" id="sub"/></a>
+          <a href="{:U('Index/addRole')}"><input type="button" value="添加新角色" class="group_btn" id="sub"/></a>
        </section>
      </form>
 
@@ -61,7 +61,7 @@
                 <?php echo $value['status']==1?'开启':'关闭'; ?>
               </td>
               <td>
-                <a href="{:U('AccountSetting/updaterole',array('roleid'=>$value['id']))}"><span class="v_update">修改</span></a>
+                <a href="{:U('Index/updateRole',array('role_id'=>$value['id']))}"><span class="v_update">修改</span></a>
                 <span class="v_delete" data-id="{$value['id']}" >删除</span>
               </td>
            </tr>
@@ -108,8 +108,8 @@
 
             if( !confirm('确定要删除此角色吗?') ) { return false; }
 
-            var roleId = $(this).attr('data-id');
-            location.href = '__URL__/deleterole?roleid='+roleId;
+            var role_id = $(this).attr('data-id');
+            location.href = '__URL__/deleteRole?role_id='+role_id;
         });
     });
 </script>

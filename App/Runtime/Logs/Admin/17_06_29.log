@@ -790,3 +790,14 @@ ERR: 1048:Column 'email' cannot be null
 [ 2017-06-29T17:02:41+08:00 ] ::1 /index.php/Admin/AccountSetting/updaterole/roleid/1.html
 ERR: 无法加载控制器:AccountSetting
 
+[ 2017-06-29T17:18:36+08:00 ] ::1 /index.php/Admin/Index/deleteRole?role_id=2
+ERR: 1054:Unknown column 'role_id' in 'where clause'
+ [ SQL语句 ] : DELETE FROM `hh_role` WHERE ( role_id=2 )
+
+[ 2017-06-29T18:14:17+08:00 ] ::1 /index.php/Admin/Index/addRole.html
+ERR: 1364:Field 'level' doesn't have a default value
+ [ SQL语句 ] : INSERT INTO `hh_access` (`role_id`,`node_id`) VALUES ('3','1'),('3','2'),('3','4')
+
+[ 2017-06-29T18:35:05+08:00 ] ::1 /index.php/Admin/AccountSetting/getnodelist.html
+ERR: 无法加载控制器:AccountSetting
+

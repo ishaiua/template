@@ -65,10 +65,20 @@ class UserModel extends Model
 		$data['remark']=$post['remark'];
 		
 		$user=$this->save($data);
-		$res = M('RoleUser')
+		$info=M('RoleUser')->where('user_id='.$post['id'])->find();
+		if ($info) {
+			$res = M('RoleUser')
 			 ->where('user_id='.$post['id'])
 			 ->save(['role_id'=>$post['role_id']]);
+		}else{
+			$roleUser = array(
+				'user_id' => $id,
+				'role_id' => $post['role_id']
+			);
+			$res = M('RoleUser')->data($roleUser)->add();
 
+		}
+		
 		return true;	 
 
 

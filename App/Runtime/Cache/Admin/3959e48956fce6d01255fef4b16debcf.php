@@ -108,7 +108,7 @@
         <?php if(is_array($menu)): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><li>
            <dl>
             <dt id="<?php echo ($v['name']); ?>"><?php echo ($v["title"]); ?></dt>
-              <?php if(is_array($v['child'])): $i = 0; $__LIST__ = $v['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v1): $mod = ($i % 2 );++$i;?><dd><a href='<?php echo U("$v[name]/$v1[name]",array("module"=>$_GET["module"]));?>' id="<?php echo ($v['name']); echo ($v1['name']); ?>"><?php echo ($v1["title"]); ?></a></dd><?php endforeach; endif; else: echo "" ;endif; ?>
+              <?php if(is_array($v['child'])): $i = 0; $__LIST__ = $v['child'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v1): $mod = ($i % 2 );++$i;?><dd><a href='<?php echo U("$v[name]/$v1[name]");?>' id="<?php echo ($v['name']); echo ($v1['name']); ?>"><?php echo ($v1["title"]); ?></a></dd><?php endforeach; endif; else: echo "" ;endif; ?>
            </dl>
           </li><?php endforeach; endif; else: echo "" ;endif; ?>
     
@@ -155,7 +155,7 @@
         
         <section style="margin:15px;">
           <h2><strong style="color:grey;">角色管理</strong></h2>
-          <a href="<?php echo U('AccountSetting/addnewrole');?>"><input type="button" value="添加新角色" class="group_btn" id="sub"/></a>
+          <a href="<?php echo U('Index/addRole');?>"><input type="button" value="添加新角色" class="group_btn" id="sub"/></a>
        </section>
      </form>
 
@@ -180,7 +180,7 @@
                 <?php echo $value['status']==1?'开启':'关闭'; ?>
               </td>
               <td>
-                <a href="<?php echo U('AccountSetting/updaterole',array('roleid'=>$value['id']));?>"><span class="v_update">修改</span></a>
+                <a href="<?php echo U('Index/updateRole',array('role_id'=>$value['id']));?>"><span class="v_update">修改</span></a>
                 <span class="v_delete" data-id="<?php echo ($value['id']); ?>" >删除</span>
               </td>
            </tr><?php endforeach; endif; else: echo "" ;endif; ?>
@@ -226,8 +226,8 @@
 
             if( !confirm('确定要删除此角色吗?') ) { return false; }
 
-            var roleId = $(this).attr('data-id');
-            location.href = '/index.php/Admin/Index/deleterole?roleid='+roleId;
+            var role_id = $(this).attr('data-id');
+            location.href = '/index.php/Admin/Index/deleteRole?role_id='+role_id;
         });
     });
 </script>

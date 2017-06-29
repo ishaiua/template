@@ -39,11 +39,7 @@
                 <input type="text" class="textbox textbox_295" name="name" value="{$data['data']['name']}"/>
                </li>
              
-             <!--   <li>
-                <span class="item_name" style="width:120px;">是否开启　</span>
-                <label class="single_selection"><input type="radio" name="status" value="1" checked />开启</label>
-                <label class="single_selection"><input type="radio" name="status"/>不开启</label>
-               </li> -->
+             
                <li>
                   <span class="item_name" style="width:120px;">功能选择　</span>
                          <table class="table" style="width:600px;margin:20px 50px;">
@@ -86,7 +82,15 @@
                 <span class="item_name" style="width:120px;vertical-align:top;">用户备注　</span>
                 <textarea placeholder="备注信息" class="textarea" style="width:500px;height:100px;" name="remark">{$data['data']['remark']}</textarea>
                </li>
-              
+
+                <li>
+                <span class="item_name" style="width:120px;">是否开启　</span>
+                <label class="single_selection"><input type="radio" name="status" value="1" id="show1" />
+                    开启
+                </label>
+                <label class="single_selection"><input type="radio" name="status" value="0" id="show0" />不开启</label>
+               </li>
+
                <li>
                 <span class="item_name" style="width:120px;"></span>
                 <input type="submit" class="link_btn" value="更新新角色"/>
@@ -100,35 +104,37 @@
    </div>
 </section>  
 
-        <script type="text/javascript">
-            $(function(){
-                $('.checkmethod').on('click',function(){
-                    var checked = $('.checkmethod:checked');
-                    var dataId = $(this).attr('data-id');
-                    var length = $('[data-id='+dataId+']').length;
+<script type="text/javascript">
+    $(function(){
+        $('.checkmethod').on('click',function(){
+            var checked = $('.checkmethod:checked');
+            var dataId = $(this).attr('data-id');
+            var length = $('[data-id='+dataId+']').length;
 
 
-                    /*如果全部选中*/
-                    if(checked.length==0){
-                        $('#'+dataId).prop("checked",false);
-                    }else{
-                        $('#'+dataId).prop("checked",true);
-                    }
+            /*如果全部选中*/
+            if(checked.length==0){
+                $('#'+dataId).prop("checked",false);
+            }else{
+                $('#'+dataId).prop("checked",true);
+            }
 
-                });
+        });
 
-                $('.controller').on('click',function(){
-                    var dataid = $(this).attr('id');
-                    if ($(this).prop('checked') ){
-                       $('input[data-id="'+dataid+'"]').prop("checked",true);  
-                   }else{
-                     $('input[data-id="'+dataid+'"]').prop("checked",false);
-                   }
-                   
-                });
+        $('.controller').on('click',function(){
+            var dataid = $(this).attr('id');
+            if ($(this).prop('checked') ){
+               $('input[data-id="'+dataid+'"]').prop("checked",true);  
+           }else{
+             $('input[data-id="'+dataid+'"]').prop("checked",false);
+           }
+           
+        });
 
-            });
-        </script>
+         $('#show{$data["data"]["status"]}').attr('checked',true);
+
+    });
+</script>
 
 
 </body>

@@ -114,7 +114,8 @@
            <dl>
             <dt id="{$v['name']}">{$v.title}</dt>
               <volist name="v['child']" id="v1">
-                <dd><a href='{:U("$v[name]/$v1[name]",array("module"=>$_GET["module"]))}' id="{$v['name']}{$v1['name']}">{$v1.title}</a></dd>
+                <dd><a href='{:U("$v[name]/$v1[name]")}' id="{$v['name']}{$v1['name']}">{$v1.title}</a></dd>
+                
               </volist>
            </dl>
           </li>
