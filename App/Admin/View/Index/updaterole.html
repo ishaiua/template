@@ -1,0 +1,135 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    #addMan{
+        border:1px #19a97b solid;padding:8px 10px;
+        transition:background 0.6s;
+    }
+    #addMan:hover{
+      background:#139667;
+      color:white;
+    }
+    #AccountSettinggetrolelist{
+      color: #19a97b;
+      background: #f8f8f8;
+    }
+</style>
+
+
+          <section class="rt_wrap content mCustomScrollbar">
+          <div class="rt_content">
+            <form action="" method="post">
+            <input type="hidden" name="roleId" value="{$data['data']['id']}"/>
+            <section>
+              <h2><strong style="color:grey;">更新新角色</strong></h2>
+              <ul class="ulColumn2">
+              
+               <li>
+                <span class="item_name" style="width:120px;">角色名称　</span>
+                <input type="text" class="textbox textbox_295" name="name" value="{$data['data']['name']}"/>
+               </li>
+             
+             <!--   <li>
+                <span class="item_name" style="width:120px;">是否开启　</span>
+                <label class="single_selection"><input type="radio" name="status" value="1" checked />开启</label>
+                <label class="single_selection"><input type="radio" name="status"/>不开启</label>
+               </li> -->
+               <li>
+                  <span class="item_name" style="width:120px;">功能选择　</span>
+                         <table class="table" style="width:600px;margin:20px 50px;">
+
+                              <volist name="data['nodelist']" id="vo">
+                                 <tr class="dataList" style="background:#CDC5BF;">
+                                    <td colspan="5">{$vo['name']}-{$vo['title']}</td>
+                                    <td style="display:none;"><input type="checkbox" name="access[]" checked="checked" value="{$vo['id']}"/></td>
+                                 </tr>
+
+                                <volist name="vo['child']" id="v">
+                                  <tr style="background:#E0EEE0;">
+                                      <td>{$v['name']}-{$v['title']}</td>
+                                      <td><?php echo $v['status']==1?'开启中':'关闭中'; ?></td>
+                                      <td><?php echo node_level($v['level']); ?></td>
+                                      <td colspan="3">
+                                        <input type="checkbox" name="access[]" value="{$v['id']}" class='controller' id="class{$v['id']}" 
+
+                                        <?php if(in_array($v['id'],$data['checknode'])){  ?>checked="checked" <?php } ?> 
+                                         />
+                                      </td>
+                                   </tr>   
+
+                                  <volist name="v['child']" id="v1">    
+                                      <tr>
+                                          <td>{$v1['name']}-{$v1['title']}</td>
+                                          <td><?php echo $v1['status']==1?'开启中':'关闭中'; ?></td>
+                                          <td><?php echo node_level($v1['level']); ?></td>
+                                          <td colspan="3">
+                                            <input type="checkbox" name="access[]" value="{$v1['id']}" data-id="class{$v['id']}" class="checkmethod" <?php if(in_array($v1['id'],$data['checknode'])){  ?>checked="checked" <?php }?> />
+                                          </td>
+                                      </tr>
+                                  </volist>
+
+                                </volist>
+                            </volist>
+                            </table>
+               </li>
+               <li>
+                <span class="item_name" style="width:120px;vertical-align:top;">用户备注　</span>
+                <textarea placeholder="备注信息" class="textarea" style="width:500px;height:100px;" name="remark">{$data['data']['remark']}</textarea>
+               </li>
+              
+               <li>
+                <span class="item_name" style="width:120px;"></span>
+                <input type="submit" class="link_btn" value="更新新角色"/>
+               </li>
+              </ul>
+             </section>
+           </div>
+        </section>
+      </form>
+
+   </div>
+</section>  
+
+        <script type="text/javascript">
+            $(function(){
+                $('.checkmethod').on('click',function(){
+                    var checked = $('.checkmethod:checked');
+                    var dataId = $(this).attr('data-id');
+                    var length = $('[data-id='+dataId+']').length;
+
+
+                    /*如果全部选中*/
+                    if(checked.length==0){
+                        $('#'+dataId).prop("checked",false);
+                    }else{
+                        $('#'+dataId).prop("checked",true);
+                    }
+
+                });
+
+                $('.controller').on('click',function(){
+                    var dataid = $(this).attr('id');
+                    if ($(this).prop('checked') ){
+                       $('input[data-id="'+dataid+'"]').prop("checked",true);  
+                   }else{
+                     $('input[data-id="'+dataid+'"]').prop("checked",false);
+                   }
+                   
+                });
+
+            });
+        </script>
+
+
+</body>
+</html>

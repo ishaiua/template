@@ -1,0 +1,90 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    #addMan{
+        border:1px #19a97b solid;padding:8px 10px;
+        transition:background 0.6s;
+    }
+    #addMan:hover{
+      background:#139667;
+      color:white;
+    }
+</style>
+
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      <form action="" method="post">
+
+      <input type="hidden" name="id" value="{$Think.get.id}"/>
+
+          <section>
+              <h2><strong style="color:grey;">更新管理员</strong></h2>
+              <ul class="ulColumn2">
+              <li>
+                <span class="item_name" style="width:120px;">邮箱　</span>
+                <input readonly="true" type="text" class="textbox textbox_295" name="mail" value="{$data['email']}"/>
+              </li>
+               <li>
+                <span class="item_name" style="width:120px;">用户名　</span>
+                <input type="text" class="textbox textbox_295" name="name" value="{$data['name']}"/>
+               </li>
+               <li>
+                <span class="item_name" style="width:120px;">初始化密码　</span>
+                 <input type="password" class="textbox textbox_295" name="password" id="pwd"/>
+                 <span class="errorTips">如不需重置密码,请勿填写</span>
+               </li>
+                <li>
+                  <span class="item_name" style="width:120px;">再次输入密码　</span>
+                  <input type="password" class="textbox textbox_295" id="repwd"/>
+                   <span class="errorTips">如不需重置密码,请勿填写</span>
+               </li>
+               
+              
+              
+
+               <li>
+                <span class="item_name" style="width:120px;vertical-align:top;">备注信息:</span>
+                <textarea placeholder="用户备注信息" class="textarea" style="width:500px;height:100px;" name="remark">{$data['remark']}</textarea>
+               </li>
+
+               <li>
+                    <span class="item_name" style="width:120px;">设置角色　</span>
+                    <select class="select" name="role_id">
+                      <volist name="roleList" id="vo">
+                        <option value="{$vo['id']}" id="list{$vo['id']}">{$vo['name']}</option>
+                      </volist>
+                    </select>
+               </li>
+
+               <li>
+                <span class="item_name" style="width:120px;"></span>
+                <input type="submit" class="link_btn" value="更新"/>
+               </li>
+              </ul>
+          </section>
+        </form>
+ </div>
+</section>
+    
+
+  <script type="text/javascript">
+      $(function(){
+          $('.lt_aside_nav ul dd').eq(0).find('a').addClass('active');
+          $('#list{$data["role_id"]}').attr('selected',true);
+      });
+
+  </script>
+
+</body>
+</html>

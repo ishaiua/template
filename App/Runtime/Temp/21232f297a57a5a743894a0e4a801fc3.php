@@ -1,0 +1,3 @@
+<?php
+//000000000000a:4:{i:0;a:8:{s:2:"id";s:1:"1";s:4:"name";s:5:"Admin";s:5:"title";s:6:"管理";s:6:"status";s:1:"1";s:6:"remark";s:12:"后台管理";s:4:"sort";N;s:3:"pid";s:1:"0";s:5:"level";s:1:"1";}i:1;a:8:{s:2:"id";s:1:"2";s:4:"name";s:5:"Index";s:5:"title";s:18:"账号权限管理";s:6:"status";s:1:"1";s:6:"remark";s:18:"账号权限管理";s:4:"sort";N;s:3:"pid";s:1:"1";s:5:"level";s:1:"2";}i:2;a:8:{s:2:"id";s:1:"3";s:4:"name";s:8:"userList";s:5:"title";s:12:"用户管理";s:6:"status";s:1:"1";s:6:"remark";s:18:"用户管理列表";s:4:"sort";N;s:3:"pid";s:1:"2";s:5:"level";s:1:"3";}i:3;a:8:{s:2:"id";s:1:"4";s:4:"name";s:8:"roleList";s:5:"title";s:12:"角色管理";s:6:"status";s:1:"1";s:6:"remark";s:18:"角色管理列表";s:4:"sort";N;s:3:"pid";s:1:"2";s:5:"level";s:1:"3";}}
+?>

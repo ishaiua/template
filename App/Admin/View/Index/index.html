@@ -1,0 +1,133 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    .welDear{margin:10px 0;font-size:14px;}
+    #showPopTxt{cursor: pointer;}
+    #error_tip{text-align: center;color:red;}
+
+    #<?php echo CONTROLLER_NAME.ACTION_NAME; ?>{
+      color:#19a97b;
+      background:#f8f8f8;
+    }
+    
+</style>
+
+  
+  <section class="rt_wrap content mCustomScrollbar">
+      <div class=" mCustomScrollbar" style="width:800px;margin:40px;">
+          
+          <p class="welDear">亲爱的 <b style="color:red;">{$Think.session.name}</b> 你好!</p>
+          <p class="welDear">信息面板:</p>
+           <table class="table fl">
+           
+            <tr>
+             <td class="center">本月登录总数</td>
+             <td class="center">{$data['m_count']}</td>
+            </tr>
+            <tr>
+             <td class="center">本次登录IP</td>
+             <td class="center">{$data['current_login_ip']}</td>
+            </tr>
+            <tr>
+              <td class="center">本次登录时间</td>
+              <td class="center">{$data['current_login_time']|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            <tr>
+             <td class="center">上次登录IP</td>
+             <td class="center">{$data['prev_login_ip']}</td>
+            </tr>
+            <tr>
+             <td class="center">上次登录时间</td>
+             <td class="center">{$data['prev_login_time']|date="Y-m-d H:i:s",###}</td>
+            </tr>
+           </table>
+           <p class="welDear" style="text-align:center;line-height:40px;">若上方登录信息异常,请及时<a id="showPopTxt">修改密码</a></p>
+      </div>  
+  </section>
+
+
+
+  <!-- 弹出框 -->
+  <section class="pop_bg">
+    <div class="pop_cont">
+     <!--title-->
+     <h3>修改密码</h3>
+     <!--content-->
+     <div class="pop_cont_input">
+      <ul>
+
+        <li>
+        <span>　用户名</span>
+        <input type="text" class="textbox" id="nickname" value="{$Think.session.name}" readonly="true" />
+       </li>
+
+       <li>
+        <span>密　　码</span>
+        <input type="password" placeholder="密码" class="textbox" id="pwd"/>
+       </li>
+    
+       <li>
+        <span class="ttl">重复密码</span>
+        <input type="password" placeholder="重复密码" class="textbox" id="repwd"/>
+       </li>
+
+       <li id="error_tip"></li>
+      </ul>
+     </div>
+     <!--bottom:operate->button-->
+     <div class="btm_btn">
+      <input type="button" value="确认" class="input_btn trueBtn"/>
+      <input type="button" value="关闭" class="input_btn falseBtn"/>
+     </div>
+    </div>
+  </section>
+
+
+  <script type="text/javascript">
+    
+    $(function(){
+        //弹出文本性提示框
+       $("#showPopTxt").click(function(){
+            $(".pop_bg").fadeIn();
+        });
+       //弹出：确认按钮
+        $(".trueBtn").click(function(){
+                
+            var pwd = $('#pwd').val(); 
+            var repwd = $('#repwd').val();
+           
+
+            if( pwd===repwd ){
+                
+                if( pwd.length<5 ){ alert('密码不能低于5位');return false; }
+
+                $.post('__URL__/updateUserPassword',{"password":repwd },function(e){
+                     location.href = "{:U('Login/logout')}";
+                });
+            }else{
+                $('#error_tip').html('密码前后不一致.');
+            }
+
+
+           
+        });
+       //弹出：取消或关闭按钮
+       $(".falseBtn").click(function(){
+            $(".pop_bg").fadeOut();
+        });
+
+    });
+  </script>
+
+</body>
+</html>

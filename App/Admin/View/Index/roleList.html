@@ -1,0 +1,118 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    #addMan{
+        border:1px #19a97b solid;padding:8px 10px;
+        transition:background 0.6s;
+    }
+    #addMan:hover{
+      background:#139667;
+      color:white;
+    }
+     #<?php echo CONTROLLER_NAME.ACTION_NAME; ?>{
+      color:#19a97b;
+      background:#f8f8f8;
+    }
+</style>
+
+
+
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      
+      <form action="" method="get">
+        
+        <section style="margin:15px;">
+          <h2><strong style="color:grey;">角色管理</strong></h2>
+          <a href="{:U('AccountSetting/addnewrole')}"><input type="button" value="添加新角色" class="group_btn" id="sub"/></a>
+       </section>
+     </form>
+
+     <section>
+      <div class="page_title">
+       <h2 class="fl">平台管理角色列表</h2>
+      </div>
+      <table class="table">
+       <tr>
+          <td>ID</td>
+          <td>角色</td>
+          <td>pid</td>
+          <td>状态</td>
+          <td>操作</td>
+       </tr>
+
+      <volist name="data" id="value">
+           <tr class="dataList">
+              <td>{$value['id']}</td>
+              <td>{$value['name']}</td>
+              <td>{$value['pid']|default=0}</td>
+              <td>
+                <?php echo $value['status']==1?'开启':'关闭'; ?>
+              </td>
+              <td>
+                <a href="{:U('AccountSetting/updaterole',array('roleid'=>$value['id']))}"><span class="v_update">修改</span></a>
+                <span class="v_delete" data-id="{$value['id']}" >删除</span>
+              </td>
+           </tr>
+      </volist>
+      </table>
+
+    </section>
+    
+    <style type="text/css">
+        
+        .v_update{
+            border:1px solid #19a97b;
+            padding:2px 10px;
+            color:#19a97b;
+            cursor: pointer;
+            transition:background 0.8s;
+        }
+        .v_update:hover{
+          background:#19a97b;
+          color:white;
+        }
+
+        .v_delete{
+          border:1px solid red;
+          padding:2px 10px;
+          color:red;
+          cursor: pointer;
+          transition:background 0.8s; 
+        }
+
+        .v_delete:hover{
+          background:red;
+          color:white;
+        }
+    </style>
+
+ </div>
+</section>
+ 
+ 
+<script type="text/javascript">
+    $(function(){
+        $('.v_delete').on('click',function(){
+
+            if( !confirm('确定要删除此角色吗?') ) { return false; }
+
+            var roleId = $(this).attr('data-id');
+            location.href = '__URL__/deleterole?roleid='+roleId;
+        });
+    });
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,104 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    #addMan{
+        border:1px #19a97b solid;padding:8px 10px;
+        transition:background 0.6s;
+    }
+    #addMan:hover{
+      background:#139667;
+      color:white;
+    }
+
+    #AccountSettinggetuserlist{
+      color: #19a97b;
+      background: #f8f8f8;
+    }
+</style>
+
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      <form action="" method="post">
+          <section>
+              <h2><strong style="color:grey;">添加管理员</strong></h2>
+              <ul class="ulColumn2">
+               <li>
+                <span class="item_name" style="width:120px;">用户名　</span>
+                <input type="text" class="textbox textbox_295" name="name"/>
+               </li>
+
+               <li>
+                <span class="item_name" style="width:120px;">邮箱　</span>
+                <input type="text" class="textbox textbox_295" name="email" id="email" />
+                <span class="errorTips">请准确填写登录邮箱地址</span>
+              </li>
+
+               <li>
+                <span class="item_name" style="width:120px;">初始化密码　</span>
+                 <input type="password" class="textbox textbox_295" name="password" id="pwd"/>
+               </li>
+                <li>
+                  <span class="item_name" style="width:120px;">再次输入密码　</span>
+                  <input type="password" class="textbox textbox_295" id="repwd"/>
+                  
+               </li>
+               
+               <li>
+                <span class="item_name" style="width:120px;vertical-align:top;">备注信息:</span>
+                <textarea placeholder="用户备注信息" class="textarea" style="width:500px;height:100px;" name="remark"></textarea>
+               </li>
+
+               <li>
+                    <span class="item_name" style="width:120px;">设置角色　</span>
+                    <select class="select" name="role_id">
+
+                      <volist name="roleList" id="vo">
+                        <option value="{$vo['id']}">{$vo['name']}</option>
+                      </volist>
+                    </select>
+               </li>
+
+               <li>
+                <span class="item_name" style="width:120px;"></span>
+                <input type="submit" class="link_btn" value="添加"/>
+               </li>
+              </ul>
+          </section>
+        </form>
+ </div>
+</section>
+ <script type="text/javascript">
+    $(function(){
+        $('#email').on('blur',function(){
+            var email=$('#email').val();
+            $.post('__URL__/checkEmail',{'email':email},function(data){
+                if (data.status==1) {
+                    alert('邮箱已被占用.');
+                    return false;
+                }
+            });
+        });
+    })
+    $('#repwd').on('blur',function(){
+        var pwd=$('#pwd').val(),
+            repwd=$('#repwd').val();
+            
+        if (pwd!=repwd) {
+            alert('密码不一致');
+        }
+    });
+ </script>
+
+</body>
+</html>

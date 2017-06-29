@@ -1,0 +1,134 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    #addMan{
+        border:1px #19a97b solid;padding:8px 10px;
+        transition:background 0.6s;
+    }
+    #addMan:hover{
+      background:#139667;
+      color:white;
+    }
+     #<?php echo CONTROLLER_NAME.ACTION_NAME; ?>{
+      color:#19a97b;
+      background:#f8f8f8;
+    }
+</style>
+
+
+
+
+<section class="rt_wrap content mCustomScrollbar">
+      
+ <div class="rt_content">
+      <form action="" method="get">
+        
+        <section style="margin:15px;">
+          <h2><strong style="color:grey;">节点管理</strong></h2>
+          <a href="{:U('AccountSetting/addnewnode')}"><input type="button" value="添加新模块" class="group_btn" id="sub"/></a>
+       </section>
+     </form>
+
+     <section>
+      <div class="page_title">
+       <h2 class="fl">平台管理节点列表</h2>
+      </div>
+      <table class="table">
+
+        <volist name="data" id="vo">
+           <tr class="dataList" style="background:#CDC5BF;">
+              <td colspan="5">{$vo['name']}-{$vo['title']}</td>
+              <td> <a href="{:U('AccountSetting/addnewnode',array('pid'=>$vo['id']))}" class="v_update">添加控制器</a> </td>
+           </tr>
+
+          <volist name="vo['child']" id="v">
+            <tr style="background:#E0EEE0;">
+                <td>{$v['name']}-{$v['title']}</td>
+                <td><?php echo $v['status']==1?'开启中':'关闭中'; ?></td>
+                <td><?php echo node_level($v['level']); ?></td>
+                <td colspan="3">
+                    <a href="{:U('AccountSetting/updatenode', array('id'=>$v['id']) )}" class="v_update">修改</a>
+                    
+                    <a href="{:U('AccountSetting/addnewnode',array('pid'=>$v['id']))}" class="v_update">添加方法</a>
+
+                <if condition="empty($v['child'])">    
+                    <a class="v_delete"  data-id="{$v.id}">删除</a>
+                </if>
+
+                </td>
+             </tr>
+            
+            <volist name="v['child']" id="v1">    
+                <tr>
+                    <td>{$v1['name']}-{$v1['title']}</td>
+                    <td><?php echo $v1['status']==1?'开启中':'关闭中'; ?></td>
+                    <td><?php echo node_level($v1['level']); ?></td>
+                    <td colspan="3">
+                        <a href="{:U('AccountSetting/updatenode', array('id'=>$v1['id']) )}" class="v_update">修改</a>
+                        <a class="v_delete" data-id="{$v1.id}">删除</a>
+                    </td>
+                </tr>
+            </volist>
+
+          </volist>
+      </volist>
+      </table>
+      </div>
+    </section>
+    
+    <style type="text/css">
+        
+        .v_update{
+            border:1px solid #19a97b;
+            padding:2px 10px;
+            color:#19a97b;
+            cursor: pointer;
+            transition:background 0.8s;
+        }
+        .v_update:hover{
+          background:#19a97b;
+          color:white;
+        }
+
+        .v_delete{
+          border:1px solid red;
+          padding:2px 10px;
+          color:red;
+          cursor: pointer;
+          transition:background 0.8s; 
+        }
+
+        .v_delete:hover{
+          background:red;
+          color:white;
+        }
+    </style>
+
+ 
+ 
+  
+<script type="text/javascript">
+    $(function(){
+       /*删除节点*/
+       $('.v_delete').on('click',function(){
+            if( !confirm('确定要删除吗?') ){ return false; }
+            var dataId = $(this).attr('data-id');
+            location.href="__URL__/deleteNode?dataid="+dataId;
+       });
+
+     });
+
+</script>  
+ 
+</body>
+</html>

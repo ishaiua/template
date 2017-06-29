@@ -1,0 +1,88 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    .lt_aside_nav dt{
+      cursor:pointer;
+    }
+
+    #addMan{
+        border:1px #19a97b solid;padding:8px 10px;
+        transition:background 0.6s;
+    }
+    #addMan:hover{
+      background:#139667;
+      color:white;
+    }
+
+    #AccountSettinggetnodelist{
+       color: #19a97b;
+      background: #f8f8f8;
+    }
+</style>
+
+      <section class="rt_wrap content mCustomScrollbar">
+      <div class="rt_content">
+          <form action="" method="post">
+            <!-- PID -->
+            <input type="hidden" name="pid" value="{$data['pid']}"/>
+            <!-- ID -->
+            <input type="hidden" name="id" value="{$data['id']}"/>
+              <section>
+                <h2><strong style="color:grey;">更新节点</strong></h2>
+                <ul class="ulColumn2">
+                 <li>
+                  <span class="item_name" style="width:120px;">功能标题　</span>
+                  <input type="text" class="textbox textbox_295" placeholder="简短描述" name="title" value="{$data['title']}"/>
+                 </li>
+
+                <li>
+                  <span class="item_name" style="width:120px;">节点名　</span>
+                  <input type="text" class="textbox textbox_295" name="name" value="{$data['name']}"/>
+                   <span class="errorTips">请注意此选项为相应模块、控制器、方法名称...</span>
+                </li>
+
+                 <li>
+                  <span class="item_name" style="width:120px;">类型　</span>
+                  <select class="select" name="level">
+                    <option value="1" id='name1'>　　　模块　　　</option>
+                    <option value="2" id='name2'>　　　控制器　　　</option>
+                    <option value="3" id='name3'>　　　方法　　　</option>
+                  </select>
+                 </li>
+                 <li>
+                  <span class="item_name" style="width:120px;">是否不显示：</span>
+                  <label class="single_selection"><input type="radio" name="show" value="1" id="show1"/>显示</label>
+                  <label class="single_selection"><input type="radio" name="show" value="0" id="show0"/>不显示</label>
+                 </li>
+                 <li>
+                  <span class="item_name" style="width:120px;vertical-align:top;">备注　</span>
+                  <textarea placeholder="备注信息" class="textarea" style="width:500px;height:100px;" name="remark">{$data['remark']}</textarea>
+                 </li>
+                 <li>
+                  <span class="item_name" style="width:120px;"></span>
+                  <input type="submit" class="link_btn" value="更新"/>
+                 </li>
+                </ul>
+               </section>
+             </div>
+            </section>
+        </form>
+  </div>
+  </section>
+ <script type="text/javascript">
+    $(function(){
+        $('#name{$data["level"]}').attr('selected',true);
+        $('#show{$data["show"]}').attr('checked',true);
+    });
+
+ </script>
+
+
+</body>
+</html>
