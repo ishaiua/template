@@ -35,7 +35,7 @@
         
         <section style="margin:15px;">
           <h2><strong style="color:grey;">节点管理</strong></h2>
-          <a href="{:U('AccountSetting/addnewnode')}"><input type="button" value="添加新模块" class="group_btn" id="sub"/></a>
+          <a href="{:U('Index/addNode')}"><input type="button" value="添加新模块" class="group_btn" id="sub"/></a>
        </section>
      </form>
 
@@ -48,7 +48,7 @@
         <volist name="data" id="vo">
            <tr class="dataList" style="background:#CDC5BF;">
               <td colspan="5">{$vo['name']}-{$vo['title']}</td>
-              <td> <a href="{:U('AccountSetting/addnewnode',array('pid'=>$vo['id']))}" class="v_update">添加控制器</a> </td>
+              <td> <a href="{:U('Index/addNode',array('pid'=>$vo['id'],'level'=>2))}" class="v_update">添加控制器</a> </td>
            </tr>
 
           <volist name="vo['child']" id="v">
@@ -57,9 +57,9 @@
                 <td><?php echo $v['status']==1?'开启中':'关闭中'; ?></td>
                 <td><?php echo node_level($v['level']); ?></td>
                 <td colspan="3">
-                    <a href="{:U('AccountSetting/updatenode', array('id'=>$v['id']) )}" class="v_update">修改</a>
+                    <a href="{:U('Index/updateNode', array('id'=>$v['id']) )}" class="v_update">修改</a>
                     
-                    <a href="{:U('AccountSetting/addnewnode',array('pid'=>$v['id']))}" class="v_update">添加方法</a>
+                    <a href="{:U('Index/addNode',array('pid'=>$v['id'],'level'=>3))}" class="v_update">添加方法</a>
 
                 <if condition="empty($v['child'])">    
                     <a class="v_delete"  data-id="{$v.id}">删除</a>
@@ -74,7 +74,7 @@
                     <td><?php echo $v1['status']==1?'开启中':'关闭中'; ?></td>
                     <td><?php echo node_level($v1['level']); ?></td>
                     <td colspan="3">
-                        <a href="{:U('AccountSetting/updatenode', array('id'=>$v1['id']) )}" class="v_update">修改</a>
+                        <a href="{:U('Index/updateNode', array('id'=>$v1['id']) )}" class="v_update">修改</a>
                         <a class="v_delete" data-id="{$v1.id}">删除</a>
                     </td>
                 </tr>

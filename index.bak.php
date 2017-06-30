@@ -14,13 +14,6 @@
 // 检测PHP环境
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
-//检查是否是新安装
-if(file_exists("./Public/install") && !file_exists("./Public/install/install.lock")){
-	
-    $url=$_SERVER['HTTP_HOST'].trim($_SERVER['SCRIPT_NAME'],'index.php').'Public/install/index.php';
-    header("Location:http://$url");
-    die;
-}
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
 define('APP_DEBUG',True);
 

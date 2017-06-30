@@ -10,11 +10,11 @@ return array(
     'DB_PREFIX'             =>  'hh_',    // 数据库表前缀
     'URL_MODEL'             =>  1,     //URL访问模式,可选参数0、1、2、3
     
-    'SHOW_PAGE_TRACE' =>true,
+    'SHOW_PAGE_TRACE' =>false,
 
     'USER_AUTH_ON'=> true,      //是否需要认证
     'USER_AUTH_TYPE'=> 2 ,      //认证类型
-    'USER_AUTH_KEY'=>'id'  ,     //认证识别号
+    'USER_AUTH_KEY'=>'id',     //认证识别号
     //'REQUIRE_AUTH_MODULE'=       //需要认证模块
     'NOT_AUTH_MODULE'=>'Login',        //无需认证模块
     'USER_AUTH_GATEWAY' =>'/Admin/Login/login' ,  //认证网关
@@ -25,10 +25,10 @@ return array(
         'DB_USER'       =>  'root',      
         'DB_PWD'        =>  'root',     
         'DB_PORT'       =>  '3306',       
-        'DB_PREFIX'     =>  '',  
+        'DB_PREFIX'     =>  'hh_',  
     ),    //数据库连接DSN
     'RBAC_ROLE_TABLE'=>'hh_role' ,     //角色表名称
-    'RBAC_USER_TABLE' =>'hh_user',     //用户表名称
+    'RBAC_USER_TABLE' =>'hh_role_user',     //用户表名称
     'RBAC_ACCESS_TABLE'=>'hh_access' ,       //权限表名称
     'RBAC_NODE_TABLE' => 'hh_node' ,   //节点表名称
     'ADMIN_AUTH_KEY'    => 'supper_admin',

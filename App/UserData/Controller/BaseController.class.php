@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller;
+namespace UserData\Controller;
 use Think\Controller;
 use Org\Util\Rbac;
 
@@ -38,7 +38,7 @@ class BaseController extends Controller
 				S('admin',$menu);
 			}
 		}
-		$menu = node_tree($menu,1);
+		$menu = node_tree($menu,14);
 		$this->assign('menu',$menu);
 
 	}

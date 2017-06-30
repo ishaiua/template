@@ -1,0 +1,121 @@
+<include file="Public/header" />
+
+<style type="text/css">
+    /*temp*/  
+    .table td{text-align:center;}
+    .table th{letter-spacing:4px;}
+    .table .dataList:hover{
+      background:#FFE4B5;
+    }
+    #sub{
+      width:110px;
+      margin-left:10px;
+    }
+
+    #<?php echo CONTROLLER_NAME.ACTION_NAME; ?>{
+      color:#19a97b;
+      background:#f8f8f8;
+    }
+</style>
+
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+      
+      <form action="" method="get">
+        <input type="hidden" name="formsearch" value="1"/>
+        <section style="margin:15px;">
+          <h2><strong style="color:grey;">按日期查询</strong></h2>
+          <input type="text" class="textbox" name="starttime" id="starttime" readonly='readonly' onClick="WdatePicker()" value="{$_GET['starttime']}"/>
+          <input type="text" class="textbox" name="endtime" id="endtime" readonly='readonly' onClick="WdatePicker()" value="{$_GET['endtime']}"/>
+       </section>
+        <section style="margin:15px;">
+          <h2><strong style="color:grey;">按玩家ID查询</strong></h2>
+          <input type="text" class="textbox" name="account_id" id="account_id" placeholder="例如:11123" value="{$_GET['account_id']}" />
+          <input type="button" value="查询" class="group_btn" id="sub"/>
+       </section>
+     </form>
+
+     <section>
+      <div class="page_title">
+       <h2 class="fl">玩家输赢情况</h2>
+      
+      </div>
+      <table class="table">
+       <tr>
+        <th>日期</th>
+        <th>玩家ID</th>
+        <th>昵称</th>
+        <th>捕鱼消耗金币数</th>
+        <th>技能消耗金币数</th>
+        <th>捕鱼奖励额度</th>
+        <th>捕鱼净赢值</th>
+        <th>总净赢值</th>
+        <th>抽水比例</th>
+       </tr>
+
+      <volist name="data" id="value">
+           <tr class="dataList">
+              <td>{$value['dateid']}</td>
+              <td>{$value['account_id']}</td>
+              <td>{$value['nickname']}</td>
+
+              <td style ="text-align:right;"><?php echo number_format($value['day_bet']); ?></td>
+              <td style ="text-align:right;"><?php echo number_format($value['day_skill']); ?></td>
+              <td style ="text-align:right;"><?php echo number_format($value['day_prize']); ?></td>
+
+              <td style ="text-align:right;"><?php echo number_format($value['day_prize']-$value['day_bet']);  ?></td>
+               <td style ="text-align:right;"><?php echo number_format($value['day_prize']-$value['day_bet']-$value['day_skill']);  ?></td>
+
+              <td><?php printf('%.2f',-(($value['day_prize']-$value['day_bet'])/$value['day_bet']*100) ); ?>%</td>
+           </tr>
+      </volist>
+      </table>
+
+      <aside class="paging">
+        {$page}
+      </aside>
+     </section>
+  
+ </div>
+</section>
+  
+<script type="text/javascript" src="__PUBLIC__/calendar/WdatePicker.js"></script>
+
+  <script type="text/javascript">
+      //比较日前大小 
+    function compareDate(checkStartDate, checkEndDate) {     
+        var arys1= new Array();     
+        var arys2= new Array();     
+         if(checkStartDate != null && checkEndDate != null) {     
+              arys1=checkStartDate.split('-');     
+                var sdate=new Date(arys1[0],parseInt(arys1[1]-1),arys1[2]);     
+              arys2=checkEndDate.split('-');     
+              var edate=new Date(arys2[0],parseInt(arys2[1]-1),arys2[2]);     
+              if(sdate > edate) {     
+                  alert("日期开始时间大于结束时间");        
+                  return false;        
+                }else{
+                    return true;
+                }  
+            }     
+         }      
+
+		$('#sub').on('click',function(){
+			var starttime = $('#starttime').val();
+			var endtime = $('#endtime').val();
+
+			if(compareDate(starttime,endtime)){
+
+			        var selectTime = endtime .replace(/-/g,"");                
+			        var baseTime = <?php echo date('Ymd'); ?>;
+			        if(baseTime > selectTime){
+			            $('form').submit();
+			        }else
+			            alert('请选择正确时间查看以前历史记录');
+			    
+			 }
+		});
+ 
+  </script>
+</body>
+</html>

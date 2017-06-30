@@ -5,6 +5,7 @@ class IndexController extends BaseController {
 
     public function index(){
         $id = I('session.id');
+       
 		$data = D('User')->getUserById($id);
 		$this->assign('data',$data);
 	    $this->display();
@@ -158,6 +159,54 @@ class IndexController extends BaseController {
 
         $role_id = I('get.role_id');
         $data = D('Role','Logic')->getRoleInfo($role_id);
+        $this->assign('data',$data);
+        $this->display();
+    }
+
+    public function nodeList()
+    {
+        $data= D('Node','Logic')->getNodeList();
+          
+        $this->assign('data',$data);
+        $this->display();
+    }
+
+    public function addNode(){
+        if(IS_POST){
+            $post = I('post.');
+            
+            $res = D('Node','Logic')->addNode($post);
+            if($res){
+                S('admin',null);
+                redirect(U('Index/nodeList'));
+            }else{
+                $this->error('添加失败,请重试');
+            }
+            exit;
+        }
+        $this->display();
+    }
+
+    /*删除节点*/
+    public function deleteNode(){
+        $nodeId = I('get.dataid');
+        D('Node','Logic')->deleteNode($nodeId);
+        S('admin',null);
+        redirect(U('Index/nodeList'));
+    }
+
+
+    public function updateNode()
+    {
+        if(IS_POST){
+            $postData = I('post.');
+            D('Node','Logic')->updateNode($postData);
+            S('admin',null);
+            redirect(U('Index/nodeList'));
+        }
+
+        $node_id = I('get.id');
+        $data = D('Node','Logic')->findNode($node_id);
         $this->assign('data',$data);
         $this->display();
     }

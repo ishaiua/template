@@ -48,9 +48,9 @@
                  <li>
                   <span class="item_name" style="width:120px;">类型　</span>
                   <select class="select" name="level">
-                    <option value="1">　　　模块　　　</option>
-                    <option value="2">　　　控制器　　　</option>
-                    <option value="3">　　　方法　　　</option>
+                    <option value="1" class="show1">　　　模块　　　</option>
+                    <option value="2" class="show2">　　　控制器　　　</option>
+                    <option value="3" class="show3">　　　方法　　　</option>
                   </select>
                  </li>
                  <li>
@@ -74,5 +74,10 @@
           </form>
         </div>
       </section>
+<script type="text/javascript">
+    var pid="{$Think.get.level|default='0'}";
+    $('.show'+pid).attr('selected',true);
+    $('.select').attr('readonly',true);
+</script>
 </body>
 </html>

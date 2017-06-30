@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller;
+namespace Income\Controller;
 use Think\Controller;
 use Org\Util\Rbac;
 
@@ -38,7 +38,7 @@ class BaseController extends Controller
 				S('admin',$menu);
 			}
 		}
-		$menu = node_tree($menu,1);
+		$menu = node_tree($menu,15);
 		$this->assign('menu',$menu);
 
 	}

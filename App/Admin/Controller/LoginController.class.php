@@ -18,7 +18,8 @@ class LoginController extends Controller
 				$result=D('User')->userLogin($map);
 				if ($result) {
 					$_SESSION['isLogin']  = 1;
-					$_SESSION['id'] = $result['id'];	
+					$_SESSION['id'] = $result['id'];
+					
 					$_SESSION['name'] = $result['name'];
 					$_SESSION['mail'] = $result['mail'];
 					

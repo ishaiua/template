@@ -1,67 +1,156 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : Local
+ Source Server Type    : MySQL
+ Source Server Version : 50636
+ Source Host           : localhost
+ Source Database       : haiua
+
+ Target Server Type    : MySQL
+ Target Server Version : 50636
+ File Encoding         : utf-8
+
+ Date: 06/30/2017 15:56:39 PM
+*/
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
---  Table structure for `st_user`
+--  Table structure for `hh_access`
 -- ----------------------------
-DROP TABLE IF EXISTS `hh_user`;
-CREATE TABLE `hh_user` (
-  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户UID',
-  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '用户昵称',
-  `mail` varchar(20) NOT NULL COMMENT '用户邮箱',
-  `password` char(32) NOT NULL DEFAULT '',
-  `mask` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '1 屏蔽用户',
-  `remark` varchar(100) NOT NULL COMMENT '用户备注',
-  `current_login_ip` char(15) NOT NULL DEFAULT '' COMMENT '本次登录IP',
-  `current_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本次登录时间',
-  `prev_login_ip` char(15) NOT NULL DEFAULT '' COMMENT '上次登录IP',
-  `prev_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上次登录时间',
-  `m_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '月登陆次数',
-  `session` varchar(60) NOT NULL COMMENT '用户的session_id',
-  PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-CREATE TABLE IF NOT EXISTS `hh_access` (
+DROP TABLE IF EXISTS `hh_access`;
+CREATE TABLE `hh_access` (
   `role_id` smallint(6) unsigned NOT NULL,
   `node_id` smallint(6) unsigned NOT NULL,
-  `level` tinyint(1) NOT NULL,
+  `level` tinyint(1) NOT NULL DEFAULT '0',
   `module` varchar(50) DEFAULT NULL,
   KEY `groupId` (`role_id`),
   KEY `nodeId` (`node_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `hh_node` (
+-- ----------------------------
+--  Records of `hh_access`
+-- ----------------------------
+BEGIN;
+INSERT INTO `hh_access` VALUES ('1', '1', '0', null), ('1', '2', '0', null), ('1', '3', '0', null), ('1', '4', '0', null), ('1', '7', '0', null), ('1', '5', '0', null), ('1', '6', '0', null), ('1', '8', '0', null);
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `hh_fish`
+-- ----------------------------
+DROP TABLE IF EXISTS `hh_fish`;
+CREATE TABLE `hh_fish` (
+  `dateid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '日期',
+  `account_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户uid',
+  `nickname` varchar(64) NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `day_bet` bigint(32) unsigned NOT NULL DEFAULT '0' COMMENT '当天下注额',
+  `day_prize` bigint(32) unsigned NOT NULL DEFAULT '0' COMMENT '当天奖励值',
+  `day_skill` bigint(16) NOT NULL DEFAULT '0' COMMENT '技能消费',
+  PRIMARY KEY (`dateid`,`account_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='捕鱼';
+
+-- ----------------------------
+--  Records of `hh_fish`
+-- ----------------------------
+BEGIN;
+INSERT INTO `hh_fish` VALUES ('20170620', '10070', 'Moses', '1000', '390', '500'), ('20170620', '20690', 'jackson1920', '1770', '850', '0'), ('20170620', '20707', 'Jesse 1931', '130550', '112000', '0'), ('20170620', '20786', '叫爸爸', '1560', '580', '0'), ('20170620', '20807', '威廉姆斯1820', '618650', '399250', '900'), ('20170620', '20810', '蒂芙妮1947', '3619750', '1502900', '16900'), ('20170620', '20816', '罗宾   1992', '540', '330', '200'), ('20170620', '20819', 'baker1897', '6047310', '3837310', '24300'), ('20170620', '20820', '布兰得利 1985', '2730', '1930', '1800'), ('20170620', '20821', 'Stevenson186', '0', '0', '0'), ('20170620', '20822', 'XXXp', '4820', '3320', '500'), ('20170620', '20823', 'Beck1998', '176090', '165620', '1300'), ('20170620', '20824', 'George 1925', '2040', '1790', '200'), ('20170620', '20825', 'Veromca1895', '720', '320', '0'), ('20170621', '10020', '诺顿', '375400', '230500', '0'), ('20170621', '10070', 'Moses', '20', '0', '0'), ('20170621', '20690', '夕阳下的菊花', '756255', '597070', '1100'), ('20170621', '20707', 'Jesse 1931', '1689150', '640850', '25000'), ('20170621', '20807', '威廉姆斯1820', '881100', '429800', '200'), ('20170621', '20808', 'Prima1868', '0', '0', '0'), ('20170621', '20820', '布兰得利 1985', '360', '80', '0'), ('20170621', '20823', '习大大', '24423250', '12913950', '35200'), ('20170621', '20825', 'Veromca1895', '38257520', '17456290', '37200'), ('20170621', '20826', '丽莎1892', '1592665', '949045', '34900'), ('20170621', '20827', '佩吉1895', '4340', '2660', '1200'), ('20170621', '20828', '乔伊斯1934', '20703870', '9273075', '4900'), ('20170621', '20829', 'Gallup1838', '8117475', '3857070', '40400'), ('20170621', '20830', 'Sarah1993', '100', '0', '0'), ('20170621', '20831', '艾达1932', '2800', '1880', '200'), ('20170621', '20832', '海洛伊丝1980', '1097925', '848745', '6700'), ('20170621', '20833', '伊莱 1946', '467700', '340880', '2800'), ('20170621', '20834', '锦涛', '176410', '69790', '1400'), ('20170621', '22636', '埃菲1862', '90', '50', '0'), ('20170622', '10015', 'LONG_GEGE', '3287440', '4489750', '0'), ('20170622', '10021', 'hungry', '0', '0', '0'), ('20170622', '10070', 'Moses', '0', '0', '0'), ('20170622', '10073', '沃格特', '0', '0', '0'), ('20170622', '20690', '夕阳下的菊花', '186490', '105465', '800'), ('20170622', '20822', 'XXXp', '0', '0', '0'), ('20170622', '20823', '买枪1', '4016700', '1548150', '2700'), ('20170622', '20825', 'Veromca1895', '1015950', '489500', '700'), ('20170622', '20826', '丽莎1892', '70311000', '42691000', '7100'), ('20170622', '20827', '佩吉1895', '1640', '1270', '0'), ('20170622', '20828', '乔伊斯1934', '12250', '1100', '0'), ('20170622', '20829', 'Gallup1838', '0', '0', '0'), ('20170622', '20832', '海洛伊丝1980', '35350', '38150', '1100'), ('20170622', '20834', '锦涛', '2300', '1000', '0'), ('20170622', '22937', '茉伊拉1911', '7960050', '0', '1400'), ('20170622', '22940', '...', '1860', '1450', '1400'), ('20170622', '22941', '啊啊啊啊啊啊啊', '0', '0', '0'), ('20170622', '22944', '劳1978', '0', '0', '0'), ('20170622', '22945', '啪啪啪', '32925', '22580', '3900'), ('20170622', '25268', '鱼宇瑜', '35480', '14250', '0'), ('20170622', '25269', '杰瑞德2014', '145192070', '220673170', '2500'), ('20170622', '25270', '门罗 2009', '2220', '1100', '2000'), ('20170622', '25271', '鱼鱼鱼鱼', '12280', '9900', '500'), ('20170622', '25272', '马休1955', '1219620', '1166490', '12900'), ('20170622', '25273', '托比1950', '7550', '6350', '800'), ('20170622', '25274', '露丝玛丽1852', '0', '0', '0'), ('20170622', '25275', 'Christ1965', '17380', '1190', '0'), ('20170622', '25276', '邓肯 1904', '10415', '8100', '0'), ('20170622', '25277', 'Roland1918', '0', '0', '0'), ('20170622', '25278', 'Beau1866', '7840', '6440', '1300'), ('20170622', '25279', '亚莉克希亚1824', '0', '0', '0'), ('20170622', '25280', 'Rebecca1937', '0', '0', '0'), ('20170622', '25282', '婕西1937', '1980', '3110', '0'), ('20170622', '25284', '好了好的', '1870', '1320', '0'), ('20170622', '25285', 'Byron1838', '10', '0', '0'), ('20170622', '25286', '赫达1955', '0', '0', '0'), ('20170622', '25287', '福特 1913', '0', '0', '0'), ('20170622', '25288', '麦克丹纳1990', '24150', '18500', '600'), ('20170622', '25289', '尤妮丝1972', '10', '0', '0'), ('20170623', '10070', 'Moses', '60', '0', '0'), ('20170623', '20831', '艾达1932', '4440', '5580', '900'), ('20170623', '25281', 'Houston1895', '1740', '1020', '200'), ('20170623', '25289', '尤妮丝1972', '10530', '0', '0'), ('20170623', '25291', '我心依旧', '237025', '109605', '2500'), ('20170623', '25292', 'logtar', '141185', '77105', '1000'), ('20170623', '25293', 'karry921', '4272250', '1792130', '5300'), ('20170623', '25294', '菲尔丁1975', '16840', '13740', '700'), ('20170623', '25295', '阿杰尔  1837', '11775', '9395', '0'), ('20170623', '25296', '三天打鱼', '3877510', '2376910', '3800'), ('20170623', '25297', '伊莱 1874', '4410', '4080', '0'), ('20170623', '25298', '￥%#', '20', '0', '0'), ('20170623', '25299', 'Ziv1956', '180', '120', '0'), ('20170623', '25300', 'Irene1853', '10430', '5520', '800'), ('20170623', '25301', '休1948', '810', '420', '0'), ('20170623', '25302', 'Marshall 1942', '0', '0', '0'), ('20170623', '25303', '鱼鱼鱼', '448640', '256650', '2400'), ('20170623', '25304', '罗伊1877', '2515460', '1501860', '4100'), ('20170623', '25307', 'Will1868', '54410', '25870', '6200'), ('20170623', '25310', 'Elma1893', '6070', '3980', '1700'), ('20170623', '25312', '艾琳娜1960', '12940', '9390', '200'), ('20170623', '25314', 'Moulton2001', '0', '0', '0'), ('20170626', '20764', '测试210', '15870', '8200', '0'), ('20170626', '25278', 'Beau1866', '1090', '1380', '0'), ('20170626', '25301', '休1948', '3690', '2860', '200'), ('20170626', '25318', '拉姆斯登1963', '51150', '30800', '200'), ('20170627', '10005', '卡特琳', '627000', '264050', '1800'), ('20170627', '10015', 'LONG_GEGE', '21350', '7350', '1300'), ('20170627', '20400', 'Arno 1826', '352750', '276350', '200'), ('20170627', '20545', '刘皇叔', '103670', '78450', '2000'), ('20170627', '20764', '测试210', '210870', '134930', '2300'), ('20170627', '25301', '休1948', '230', '160', '0'), ('20170627', '25314', 'Moulton2001', '0', '0', '0'), ('20170627', '25318', '拉姆斯登1963', '24025', '10320', '300'), ('20170627', '25319', '愤怒的老司机', '108755', '82990', '0'), ('20170627', '25320', 'M.', '36820', '26850', '2500'), ('20170627', '25321', '杰拉德1949', '1850', '1070', '200'), ('20170627', '25322', 'Stanford 197', '2900', '2500', '0');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `hh_node`
+-- ----------------------------
+DROP TABLE IF EXISTS `hh_node`;
+CREATE TABLE `hh_node` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '1',
   `remark` varchar(255) DEFAULT NULL,
   `sort` smallint(6) unsigned DEFAULT NULL,
   `pid` smallint(6) unsigned NOT NULL,
   `level` tinyint(1) unsigned NOT NULL,
+  `show` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `level` (`level`),
   KEY `pid` (`pid`),
   KEY `status` (`status`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `hh_role` (
+-- ----------------------------
+--  Records of `hh_node`
+-- ----------------------------
+BEGIN;
+INSERT INTO `hh_node` VALUES ('1', 'Admin', 'GM工具', '1', '后台管理', null, '0', '1', '1'), ('2', 'Index', '账户权限设置', '1', '用户账号权限设置', null, '1', '2', '0'), ('3', 'userList', '用户列表', '1', '用户列表', null, '2', '3', '0'), ('4', 'roleList', '角色管理', '1', '角色管理', null, '2', '3', '0'), ('5', 'nodeList', '节点管理', '1', '角色列表', null, '2', '3', '0'), ('6', 'index', '账户设置', '1', '账户设置', null, '2', '3', '0'), ('7', 'GameUser', '游戏用户管理', '1', '游戏运营管理系统', null, '1', '2', '1'), ('8', 'gameUserList', '用户列表', '1', '游戏用户列表', null, '7', '3', '1'), ('13', 'GameData', '游戏数据', '1', '', null, '0', '1', '1'), ('14', 'UserData', '用户数据', '1', '', null, '0', '1', '1'), ('15', 'Income', '收入管理', '1', '', null, '0', '1', '1'), ('17', 'Fish', '捕鱼达人', '1', '', null, '13', '2', '1'), ('18', 'Clown', '超级小丑', '1', '', null, '13', '2', '1'), ('19', 'fishRecordList', '游戏记录', '1', '', null, '17', '3', '1'), ('20', 'Index', '游戏用户', '1', '', null, '14', '2', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `hh_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `hh_role`;
+CREATE TABLE `hh_role` (
   `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `pid` smallint(6) DEFAULT NULL,
-  `status` tinyint(1) unsigned DEFAULT NULL,
+  `status` tinyint(1) unsigned DEFAULT '1',
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `hh_role_user` (
+-- ----------------------------
+--  Records of `hh_role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `hh_role` VALUES ('1', '普通管理员', null, '1', '');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `hh_role_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `hh_role_user`;
+CREATE TABLE `hh_role_user` (
   `role_id` mediumint(9) unsigned DEFAULT NULL,
   `user_id` char(32) DEFAULT NULL,
   KEY `group_id` (`role_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `hh_role_user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `hh_role_user` VALUES ('1', '27');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `hh_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `hh_user`;
+CREATE TABLE `hh_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户UID',
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '用户昵称',
+  `email` varchar(20) NOT NULL COMMENT '用户邮箱',
+  `password` char(32) NOT NULL DEFAULT '',
+  `is_active` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '1 屏蔽用户',
+  `remark` varchar(100) NOT NULL COMMENT '用户备注',
+  `current_login_ip` char(15) NOT NULL DEFAULT '0' COMMENT '本次登录IP',
+  `current_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '本次登录时间',
+  `prev_login_ip` char(15) NOT NULL DEFAULT '0' COMMENT '上次登录IP',
+  `prev_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上次登录时间',
+  `m_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '月登陆次数',
+  `session` varchar(60) NOT NULL DEFAULT '0' COMMENT '用户的session_id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
+
+-- ----------------------------
+--  Records of `hh_user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `hh_user` VALUES ('1', 'admin', 'ishaiua@163.com', '382c7bf9e1681521f99cdc095f2878fa', '0', 'super admin', '::1', '1498797830', '::1', '1498793445', '19', '8jmfg86mb7a4933e87f4ftld35'), ('27', 'test', 'test@163.com', '5281ba220de6145013979799a1c86b87', '0', 'test', '::1', '1498796564', '::1', '1498796477', '12', '8jmfg86mb7a4933e87f4ftld35');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
