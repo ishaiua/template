@@ -18,7 +18,7 @@ class FishModel extends Model
 		$map['dateid'] = array('between', array($startYMD,$endYMD) );
 			
 		$count = $this->where($map)->count();
-		$Page = new \Think\Page($count,20);
+		$Page = new \Think\Page($count,10);
 		$show = $Page->show();
 
 		$result = $this->where($map)->order('dateid desc')->limit($Page->firstRow.','.$Page->listRows)->select();

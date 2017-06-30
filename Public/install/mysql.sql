@@ -146,11 +146,7 @@ CREATE TABLE `hh_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='后台用户表';
 
--- ----------------------------
---  Records of `hh_user`
--- ----------------------------
-BEGIN;
-INSERT INTO `hh_user` VALUES ('1', 'admin', 'ishaiua@163.com', '382c7bf9e1681521f99cdc095f2878fa', '0', 'super admin', '::1', '1498797830', '::1', '1498793445', '19', '8jmfg86mb7a4933e87f4ftld35'), ('27', 'test', 'test@163.com', '5281ba220de6145013979799a1c86b87', '0', 'test', '::1', '1498796564', '::1', '1498796477', '12', '8jmfg86mb7a4933e87f4ftld35');
-COMMIT;
+
+
 
 SET FOREIGN_KEY_CHECKS = 1;

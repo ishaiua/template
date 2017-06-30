@@ -6,6 +6,7 @@ use Think\Model;
 
 class UserModel extends Model
 {
+
 	public function userLogin($data)
 	{
 		$user = $this->where($data)->find();
@@ -15,7 +16,7 @@ class UserModel extends Model
 	public function getUserById($id)
 	{
 		$field="a.id as id,a.name as name ,email,is_active,a.remark as remark,current_login_ip,current_login_time,c.name as rolename,b.role_id as role_id";
-		$user = $this->field($field)->join(' as a left join hh_role_user as b on a.id=b.user_id left join hh_role as c on b.role_id=c.id ')->where('a.id='.$id)->find();
+		$user = $this->field($field)->join(' as a left join __ROLE_USER__ as b on a.id=b.user_id left join __ROLE__ as c on b.role_id=c.id ')->where('a.id='.$id)->find();
 		return $user;	
 	}
 
