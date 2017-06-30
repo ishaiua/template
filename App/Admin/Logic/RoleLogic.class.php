@@ -25,7 +25,7 @@ class RoleLogic extends Model
 		}
 		
 		 
-		$accessModel = M('Access','hh_');
+		$accessModel = M('Access');
 		$accessModel->startTrans();
 
 		$res = $accessModel->where( array('role_id'=>$roleId) )->delete();

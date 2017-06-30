@@ -11,7 +11,7 @@ class LoginLogBehavior extends Behavior
 		$data['current_login_ip'] = $_SERVER['REMOTE_ADDR'];
    		$data['current_login_time']     = time();
 
-		$userModel = M('User','hh_');
+		$userModel = M('User');
 
 		$map['id'] = $id;
 		$result = $userModel->where($map)->find();
