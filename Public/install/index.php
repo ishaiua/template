@@ -44,13 +44,18 @@ if(@$_GET['query']=='success'){
             $link->select_db($data['DB_NAME']);
         }
         // 导入sql数据并创建表
-        $bjyadmin_str=file_get_contents('./bjyadmin.sql');
-        $sql_array=preg_split("/;[\r\n]+/", str_replace('bjyadmin_',$data['DB_PREFIX'],$bjyadmin_str));
+        $mysql_str=file_get_contents('./mysql.sql');
+        $sql_array=preg_split("/;[\r\n]+/", str_replace('hh_',$data['DB_PREFIX'],$mysql_str));
         foreach ($sql_array as $k => $v) {
             if (!empty($v)) {
                 $link->query($v);
             }
         }
+
+        $email=$data['email'];
+        $salt='haiua';
+        $password=md5(md5($data['password'].$salt));
+
         $link->close();
         $db_str=<<<php
 <?php
