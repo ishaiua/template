@@ -4,7 +4,7 @@
 
 使用
 
-1.git clone https://github.com/ishaiua/ThinkPHP-admin.git
+1.git clone
 
 2.在该项目目录运行： php -S localhost:8000
 
